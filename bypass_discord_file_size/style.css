@@ -1,10 +1,14 @@
 /* Fundo escuro */
 body {
-  background-color: #1F1F1F; /* Cor de fundo escura */
-  color: #FFFFFF;           /* Texto branco */
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    color: white;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: \.SF NS Text, -apple-system, Segoe UI, system-ui;
 }
 
 /* Estilo do cabeçalho */
@@ -32,23 +36,63 @@ input[type="file"] {
   margin-bottom: 10px;
 }
 
-button {
-  color: #FFFFFF;
-  background-color: #761AFF; /* Cor do botão */
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #4E009F; /* Tom mais escuro no hover */
-}
-
 /* Mensagem de resposta */
 p#response {
   text-align: center;
   color: #00FF88; /* Verde claro para feedback */
   font-weight: bold;
+}
+
+button {
+    align-items: center;
+    background-color: var(--gx-background-color);
+    border: 1px solid hsl(var(--gx-palette-no-32));
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: hsl(var(--color-font));
+    cursor: pointer;
+    display: flex;
+    font-size: var(--font-size, 12px);
+    font-weight: 700;
+    justify-content: center;
+    padding: var(--padding, 8px 16px);
+    text-align: center;
+    vertical-align: middle;
+    font-family: \.SF NS Text, -apple-system, Segoe UI, system-ui;
+    height: 32px;
+}
+
+button:hover {
+    background-color: hsl(var(--gx-palette-no-20));
+}
+
+.wallpaper-container {
+    border: none;
+    height: 100vh;
+    inset: 0;
+    position: fixed;
+    width: 100vw;
+}
+
+.wallpaper-image {
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    box-shadow: inset 0px 5px 10px 0px var(--gx-topbar-color);
+}
+
+.bg-box {
+    /* background-color: hsla(var(--gx-palette-no-12) / 32%); */
+    /* border: 1px solid hsl(var(--gx-palette-no-32)); */
+    border: 1px solid #ffffff12;
+    border-radius: 8px;
+    color: hsl(var(--color-font));
+    padding: 24px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
 }
