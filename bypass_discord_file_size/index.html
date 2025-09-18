@@ -7,12 +7,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Envio de Arquivos</h1>
-  <form id="uploadForm">
-    <input type="file" id="fileInput" required />
-    <button type="submit">Enviar</button>
-  </form>
-  <p id="response"></p>
+  <div class="wallpaper-container">
+    <div class="wallpaper-image" style="background-image: url(.../Sky.jpg);"></div>
+  </div>
+  <div class="bg-box">
+    <h1>Envio de Arquivos</h1>
+    <form id="uploadForm">
+      <input type="file" id="fileInput" required />
+      <button type="submit" style="margin-top: 16px;">Enviar</button>
+    </form>
+    <p id="response"></p>
+  </div>
 
   <script>
     const form = document.getElementById('uploadForm');
