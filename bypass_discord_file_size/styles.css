@@ -1,0 +1,54 @@
+/* Fundo escuro */
+body {
+  background-color: #1F1F1F; /* Cor de fundo escura */
+  color: #FFFFFF;           /* Texto branco */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo do cabeçalho */
+h1 {
+  color: #761AFF; /* Destaque na cor primária */
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* Entrada e botão */
+input[type="file"] {
+  color: #FFFFFF; /* Texto no input */
+  background-color: #333333; /* Fundo do input */
+  border: 1px solid #761AFF;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  color: #FFFFFF;
+  background-color: #761AFF; /* Cor do botão */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #4E009F; /* Tom mais escuro no hover */
+}
+
+/* Mensagem de resposta */
+p#response {
+  text-align: center;
+  color: #00FF88; /* Verde claro para feedback */
+  font-weight: bold;
+}
