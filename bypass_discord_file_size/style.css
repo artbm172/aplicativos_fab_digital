@@ -62,6 +62,31 @@ p#response {
   font-weight: bold;
 }
 
+.visual {
+    background-color: var(--gx-background-color);
+    outline: 1px solid hsl(var(--gx-palette-no-32));
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: var(--opera-font-color);
+    display: flex;
+    flex-grow: 1;
+    font: menu;
+    font-family: var(--opera-font-family);
+    height: 24px;
+    line-height: 24px;
+    margin: 0 4px;
+    padding: 0 5px;
+    text-align: justify;
+    user-select: none;
+    filter: drop-shadow(rgba(0, 0, 0, 0.7) 0px 1px 2px);
+    transition: 0.05s ease-in-out;
+    border: none;
+}
+
+.visual:focus-within {
+    outline: 2px solid var(--gx-accent-color);
+}
+
 button {
     align-items: center;
     background-color: var(--gx-background-color);
