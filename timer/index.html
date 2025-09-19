@@ -26,83 +26,106 @@
   </div>
 
   <script>
-    (function(){
-      const display = document.getElementById('timer');
-      const TOTAL_MS = 10 * 60 * 1000;
-      let running = false;
-      let startTs = null;
-      let elapsedBefore = 0;
-      let rafId = null;
+(function(){
+  const display = document.getElementById('timer');
+  const TOTAL_MS = 10 * 60 * 1000;
+  let running = false;
+  let startTs = null;
+  let elapsedBefore = 0;
+  let rafId = null;
 
-      function format(ms){
-        if(ms < 0) ms = 0;
-        const totalCentis = Math.floor(ms / 10);
-        const centis = totalCentis % 100;
-        const totalSeconds = Math.floor(totalCentis / 100);
-        const seconds = totalSeconds % 60;
-        const minutes = Math.floor(totalSeconds / 60);
-        const MM = String(minutes).padStart(2,'0');
-        const SS = String(seconds).padStart(2,'0');
-        const CC = String(centis).padStart(2,'0');
-        return `[ ${MM}:${SS}.${CC} ]`;
-      }
+  // Detecta se a URL tem "?rel"
+  const params = new URLSearchParams(window.location.search);
+  const isRelogio = params.has("rel");
 
-      function update(){
-        const now = performance.now();
-        const elapsed = elapsedBefore + (startTs ? now - startTs : 0);
-        const remaining = TOTAL_MS - elapsed;
-        display.textContent = format(remaining);
-        if(remaining <= 0){
-          running = false;
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        } else {
-          rafId = requestAnimationFrame(update);
-        }
-      }
+  function formatTimer(ms){
+    if(ms < 0) ms = 0;
+    const totalCentis = Math.floor(ms / 10);
+    const centis = totalCentis % 100;
+    const totalSeconds = Math.floor(totalCentis / 100);
+    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(totalSeconds / 60);
+    const MM = String(minutes).padStart(2,'0');
+    const SS = String(seconds).padStart(2,'0');
+    const CC = String(centis).padStart(2,'0');
+    return `[ ${MM}:${SS}.${CC} ]`;
+  }
 
-      function startPauseToggle(){
-        if(running){
-          running = false;
-          const now = performance.now();
-          elapsedBefore += now - startTs;
-          startTs = null;
-          if(rafId) cancelAnimationFrame(rafId);
-          rafId = null;
-        } else {
-          if(elapsedBefore >= TOTAL_MS){
-            elapsedBefore = 0;
-            display.textContent = format(TOTAL_MS);
-          }
-          running = true;
-          startTs = performance.now();
-          if(!rafId) rafId = requestAnimationFrame(update);
-        }
-      }
+  function formatClock(){
+    const now = new Date();
+    const HH = String(now.getHours()).padStart(2,'0');
+    const MM = String(now.getMinutes()).padStart(2,'0');
+    const SS = String(now.getSeconds()).padStart(2,'0');
+    return `[ ${HH}:${MM}:${SS} ]`;
+  }
 
-      function resetTimer(){
-        running = false;
+  function updateTimer(){
+    const now = performance.now();
+    const elapsed = elapsedBefore + (startTs ? now - startTs : 0);
+    const remaining = TOTAL_MS - elapsed;
+    display.textContent = formatTimer(remaining);
+    if(remaining <= 0){
+      running = false;
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    } else {
+      rafId = requestAnimationFrame(updateTimer);
+    }
+  }
+
+  function updateClock(){
+    display.textContent = formatClock();
+    setTimeout(updateClock, 1000);
+  }
+
+  function startPauseToggle(){
+    if(running){
+      running = false;
+      const now = performance.now();
+      elapsedBefore += now - startTs;
+      startTs = null;
+      if(rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    } else {
+      if(elapsedBefore >= TOTAL_MS){
         elapsedBefore = 0;
-        startTs = null;
-        if(rafId) cancelAnimationFrame(rafId);
-        rafId = null;
-        display.textContent = format(TOTAL_MS);
+        display.textContent = formatTimer(TOTAL_MS);
       }
+      running = true;
+      startTs = performance.now();
+      if(!rafId) rafId = requestAnimationFrame(updateTimer);
+    }
+  }
 
-      window.addEventListener('keydown', (e) => {
-        if(e.code === 'Space'){
-          e.preventDefault();
-          startPauseToggle();
-        }
-        if(e.code === 'Escape'){
-          e.preventDefault();
-          resetTimer();
-        }
-      });
+  function resetTimer(){
+    running = false;
+    elapsedBefore = 0;
+    startTs = null;
+    if(rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    display.textContent = formatTimer(TOTAL_MS);
+  }
 
-      display.textContent = format(TOTAL_MS);
-    })();
-  </script>
+  if(isRelogio){
+    // Se for relógio → inicia imediatamente no modo clock
+    updateClock();
+  } else {
+    // Timer normal
+    display.textContent = formatTimer(TOTAL_MS);
+    window.addEventListener('keydown', (e) => {
+      if(e.code === 'Space'){
+        e.preventDefault();
+        startPauseToggle();
+      }
+      if(e.code === 'Escape'){
+        e.preventDefault();
+        resetTimer();
+      }
+    });
+  }
+})();
+</script>
+
 
 
 </body></html>
