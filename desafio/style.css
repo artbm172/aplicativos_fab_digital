@@ -1,0 +1,33 @@
+.mensagem {
+    border-bottom: 1px solid hsl(0 0 0 / 20%);
+    padding: 4px;
+
+    .priority,
+    .id {
+        font-weight: 600;
+    }
+
+    &.priority-0 .priority {
+        color: darkgreen;
+    }
+
+    &.priority-1 {
+        /* background-color: hsl(23 100 40 / 30%) !important; */
+
+        .priority {
+            color: darkorange;
+        }
+    }
+
+    &.priority-2 {
+        /* background-color: hsl(0 100 40 / 30%) !important; */
+
+        .priority {
+            color: crimson;
+        }
+    }
+
+    &:nth-child(2n) {
+        background-color: hsl(0 0 0 / 5%);
+    }
+}
